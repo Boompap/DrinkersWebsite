@@ -1,0 +1,413 @@
+import { useEffect, useState } from "react";
+import "./App.css";
+
+const drinkCards = [
+  {
+    name: "Beer",
+    percent: "5%",
+    text: "Play one additional Drink card this turn, as long as it has 15% or less alcohol.",
+  },
+  {
+    name: "Red Wine",
+    percent: "10%",
+    text: "If played alongside Cheers or On Me!, that effect triggers twice.",
+  },
+  {
+    name: "Vodka",
+    percent: "20%",
+    text: "Draw 1 card. If it is a Drink, consume it and apply its percentage. If it is a Utility card, discard it.",
+  },
+  {
+    name: "Whiskey",
+    percent: "25%",
+    text: "If this pushes you above 100%, set your alcohol meter to 80% instead and do not discard 2 cards.",
+  },
+  {
+    name: "Cocktail",
+    percent: "15%",
+    text: "Play it alongside Lemon Slice, Ice, Soda, Salt Rim, or Syrup to play one extra Utility card this turn.",
+  },
+  {
+    name: "Liqueur",
+    percent: "15%",
+    text: "Choose a player. They reveal their hand, then choose 1 card to discard.",
+  },
+];
+
+const utilityCards = [
+  {
+    name: "Water",
+    text: "Choose any player and apply -10% to their alcohol meter.",
+  },
+  {
+    name: "Snack",
+    text: "Choose any player and apply -15% to their alcohol meter.",
+  },
+  {
+    name: "Cheers",
+    text: "All players apply +5% to their alcohol meter.",
+  },
+  {
+    name: "Spill",
+    text: "Cancel a Drink card played by another player before it resolves.",
+  },
+  {
+    name: "Coffee",
+    text: "Ignore a card effect that would apply to you.",
+  },
+  {
+    name: "Recycle",
+    text: "Draw the last discarded card.",
+  },
+];
+
+const faq = [
+  {
+    question: "Do I have to play cards on my turn?",
+    answer:
+      "No. You do not have to play cards. If you do not play a Drink card, you draw 2 cards at the end of your turn instead of 1.",
+  },
+  {
+    question: "What does alongside mean?",
+    answer:
+      "Alongside means both cards are played at the same time. If a canceling effect like Spill cancels the Drink, both cards are lost.",
+  },
+  {
+    question: "How do random effects work?",
+    answer:
+      "Any card that mentions random should be resolved randomly, without choosing the target card directly.",
+  },
+  {
+    question: "When can Coffee and Spill be used?",
+    answer:
+      "Coffee and Spill should be used like reaction cards, in response to another card or effect.",
+  },
+  {
+    question: "What if I have no cards to discard?",
+    answer: "If you have no cards, you do not discard anything.",
+  },
+  {
+    question: "How do table-wide effects resolve?",
+    answer:
+      "Anything that makes everyone take an action resolves turn-wise, starting with the player who activated the effect.",
+  },
+];
+
+function App() {
+  const [beerFill, setBeerFill] = useState(0);
+
+  useEffect(() => {
+    const updateBeerFill = () => {
+      const scrollTop = window.scrollY;
+      const pageHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const progress = pageHeight > 0 ? scrollTop / pageHeight : 0;
+      setBeerFill(Math.min(100, Math.max(0, progress * 100)));
+    };
+
+    updateBeerFill();
+    window.addEventListener("scroll", updateBeerFill);
+
+    return () => window.removeEventListener("scroll", updateBeerFill);
+  }, []);
+
+  return (
+    <main style={{ "--beer-fill": `${beerFill}%` }}>
+      <div className="beer-side left" aria-hidden="true">
+        <div className="beer-glass">
+          <div className="beer-foam"></div>
+          <div className="beer-liquid"></div>
+        </div>
+      </div>
+
+      <div className="beer-side right" aria-hidden="true">
+        <div className="beer-glass">
+          <div className="beer-foam"></div>
+          <div className="beer-liquid"></div>
+        </div>
+      </div>
+      <header className="navbar">
+        <div className="nav-inner">
+          <a href="#top" className="logo">
+            Drinkers 1000
+          </a>
+
+          <nav className="nav-links">
+            <a href="#how">How to Win</a>
+            <a href="#cards">Cards</a>
+            <a href="#box">What You Get</a>
+            <a href="#faq">FAQ</a>
+          </nav>
+
+          <a href="#notify" className="nav-button">
+            Notify Me
+          </a>
+        </div>
+      </header>
+
+      <section id="top" className="hero">
+        <div className="hero-content">
+          <div>
+            <p className="tag">Coming soon to Kickstarter</p>
+
+            <h1>
+              The chaotic card game of risky drinks, table sabotage, and perfect
+              timing.
+            </h1>
+
+            <p className="hero-text">
+              Drinkers 1000 is an alcohol-themed party card game where players
+              race to hit exactly 100% on their alcohol meter. Push your luck,
+              play clever combos, mess with the table, and avoid going over the
+              limit.
+            </p>
+
+            <p className="small-note">
+              No real drinking is required to play. The alcohol meter is the
+              game’s score system.
+            </p>
+
+            <div className="button-row">
+              <a href="#notify" className="primary-button">
+                Notify Me on Launch
+              </a>
+
+              <a href="#how" className="secondary-button">
+                Learn How It Plays
+              </a>
+            </div>
+          </div>
+
+          <div className="hero-card">
+            <div className="mockup">
+              <div className="mockup-title">
+                <h2>Drinkers 1000</h2>
+              </div>
+
+              <p className="mockup-subtitle">
+                A party game made by Harpoon Games
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="quick-points">
+        <article>
+          <h3>Fast to learn</h3>
+          <p>
+            Play 1 Drink card and 1 Utility card each turn, then draw at the end
+            of your turn.
+          </p>
+        </article>
+
+        <article>
+          <h3>Always unstable</h3>
+          <p>
+            Cards can boost, lower, cancel, steal, recycle, reveal, or force
+            surprise drinks.
+          </p>
+        </article>
+
+        <article>
+          <h3>Win at 100%</h3>
+          <p>
+            Land exactly on 100% at the start or end of your turn to win the
+            game.
+          </p>
+        </article>
+      </section>
+
+      <section id="how" className="section dark-section">
+        <div className="two-column">
+          <div>
+            <p className="section-label">How to Win</p>
+            <h2>Reach exactly 100% without overdoing it.</h2>
+
+            <p>
+              Every player starts at 0% and raises their alcohol meter by
+              playing Drink cards. The trick is landing exactly on 100%, while
+              other players use Utility cards to pull you back, push you over,
+              steal from you, or cancel your best play.
+            </p>
+          </div>
+
+          <div className="puke-card">
+            <span>🤢</span>
+            <h3>The Puke Effect</h3>
+            <p>
+              Go above 100% and things get messy. Your alcohol meter crashes
+              back down to 70%, and you discard 2 cards. It is a brutal setback,
+              but it also keeps the race chaotic until the final turn.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="cards" className="section">
+        <p className="section-label">The Cards</p>
+        <h2>Two card types, endless bad decisions.</h2>
+
+        <div className="card-columns">
+          <div className="card-panel">
+            <h3>Drink Cards</h3>
+            <p>
+              Drink cards are the heart of the game. Each one adds alcohol
+              percentage to your meter and triggers a unique effect.
+            </p>
+
+            <div className="card-grid">
+              {drinkCards.map((card) => (
+                <article className="game-card" key={card.name}>
+                  <div className="card-title-row">
+                    <h4>{card.name}</h4>
+                    <strong>{card.percent}</strong>
+                  </div>
+                  <p>{card.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="card-panel">
+            <h3>Utility Cards</h3>
+            <p>
+              Utility cards twist the rules. Use them to adjust meters, defend
+              yourself, disrupt others, or set up the perfect combo.
+            </p>
+
+            <div className="card-grid">
+              {utilityCards.map((card) => (
+                <article className="game-card" key={card.name}>
+                  <h4>{card.name}</h4>
+                  <p>{card.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section dark-section">
+        <p className="section-label">Combos & Chaos</p>
+        <h2>
+          Cards change each other when played alongside the right partner.
+        </h2>
+
+        <div className="combo-grid">
+          <article>
+            <h3>Beer + Salt Rim</h3>
+            <p>
+              Ignore Salt Rim’s discard requirement and keep the pressure going.
+            </p>
+          </article>
+
+          <article>
+            <h3>White Wine + Soda</h3>
+            <p>
+              Turn a clean Utility into a dangerous +15% swing, then discard 1
+              card.
+            </p>
+          </article>
+
+          <article>
+            <h3>Sake + Overpoured Glass</h3>
+            <p>
+              Draw a card while everyone else discards, flipping a friendly
+              toast into a table-wide problem.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="box" className="section">
+        <p className="section-label">What You Get</p>
+        <h2>Everything needed to start playing fast.</h2>
+
+        <div className="contents-grid">
+          <article>
+            <strong>72</strong>
+            <p>Total Cards</p>
+          </article>
+
+          <article>
+            <strong>44</strong>
+            <p>Drink Cards</p>
+          </article>
+
+          <article>
+            <strong>26</strong>
+            <p>Utility Cards</p>
+          </article>
+
+          <article>
+            <strong>1</strong>
+            <p>Rulebook</p>
+          </article>
+
+          <article>
+            <strong>+</strong>
+            <p>Alcohol Meter Cards</p>
+          </article>
+        </div>
+
+        <p className="wide-text">
+          The rulebook explains the general rules, card mechanics, common
+          interactions, and clarifications so groups can start playing quickly
+          and resolve edge cases without slowing down the table.
+        </p>
+      </section>
+
+      <section className="section dark-section">
+        <p className="section-label">Printing & Shipping</p>
+        <h2>Production details coming soon.</h2>
+
+        <p className="wide-text">
+          Use this section for manufacturing details, shipping regions,
+          estimated delivery windows, taxes, VAT notes, and whether backers will
+          receive tracking information.
+        </p>
+      </section>
+
+      <section id="faq" className="section">
+        <p className="section-label">FAQ</p>
+        <h2>Common Questions</h2>
+
+        <div className="faq-grid">
+          {faq.map((item) => (
+            <article key={item.question}>
+              <h3>{item.question}</h3>
+              <p>{item.answer}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="notify" className="cta-section">
+        <div className="cta-box">
+          <div>
+            <h2>Ready to join the table?</h2>
+            <p>
+              Follow the campaign, get launch updates, and be there when
+              Drinkers 1000 goes live on Kickstarter.
+            </p>
+          </div>
+
+          <a href="#" className="cta-button">
+            Kickstarter Link Placeholder
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        <p>
+          Drinkers 1000 is an alcohol-themed card game. Please drink responsibly
+          if you choose to play with real drinks.
+        </p>
+      </footer>
+    </main>
+  );
+}
+
+export default App;
