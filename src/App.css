@@ -9,7 +9,7 @@ html {
 body {
   margin: 0;
   background: #160b0b;
-  color: #fff7ed;
+  color: #fffaf0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -31,13 +31,12 @@ main {
   background-attachment: fixed;
 }
 
-main > *:not(.beer-side) {
+main > *:not(.beer-video-side) {
   position: relative;
   z-index: 1;
 }
 
-/* SCROLL-FILLING BEER SIDES */
-.beer-side {
+.beer-video-side {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -45,256 +44,28 @@ main > *:not(.beer-side) {
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
-  background:
-    radial-gradient(circle at top, rgba(245, 158, 11, 0.16), transparent 35%),
-    #160b0b;
+  background: #160b0b;
 }
 
-.beer-side.left {
+.beer-video-side.left {
   left: 0;
 }
 
-.beer-side.right {
+.beer-video-side.right {
   right: 0;
 }
 
-.beer-glass {
+.beer-video-side video {
   position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-
-.beer-liquid {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: var(--beer-fill);
-  background: linear-gradient(
-    180deg,
-    #f8d768 0%,
-    #f4c542 20%,
-    #eeae21 48%,
-    #d88913 75%,
-    #a9570d 100%
-  );
-  transition: height 0.12s linear;
-  box-shadow: 0 -18px 45px rgba(245, 158, 11, 0.24);
-}
-
-.beer-liquid {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: var(--beer-fill);
-  overflow: hidden;
-  background: linear-gradient(
-    180deg,
-    #f8d768 0%,
-    #f4c542 20%,
-    #eeae21 48%,
-    #d88913 75%,
-    #a9570d 100%
-  );
-  transition: height 0.12s linear;
-  box-shadow: 0 -18px 45px rgba(245, 158, 11, 0.24);
-}
-
-/* soft moving shine instead of obvious repeating stripes */
-.beer-liquid::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      115deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.08) 20%,
-      transparent 42%
-    ),
-    linear-gradient(
-      70deg,
-      transparent 10%,
-      rgba(255, 255, 255, 0.05) 38%,
-      transparent 60%
-    );
-  background-size:
-    260px 100%,
-    420px 100%;
-  animation: beer-shimmer 12s linear infinite;
-  opacity: 0.65;
-}
-
-/* larger, slower bubble layer */
-.beer-liquid::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle, rgba(255, 248, 220, 0.5) 0 3px, transparent 4px),
-    radial-gradient(circle, rgba(255, 248, 220, 0.35) 0 5px, transparent 6px),
-    radial-gradient(circle, rgba(255, 248, 220, 0.42) 0 2px, transparent 3px),
-    radial-gradient(circle, rgba(255, 248, 220, 0.25) 0 6px, transparent 7px);
-  background-size:
-    130px 210px,
-    190px 260px,
-    90px 170px,
-    240px 310px;
-  background-position:
-    14px 40px,
-    80px 120px,
-    42px 20px,
-    120px 180px;
-  animation: beer-bubbles-slow 28s linear infinite;
-  opacity: 0.65;
-}
-
-.beer-foam {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(var(--beer-fill) - 18px);
-  height: 42px;
-  z-index: 2;
-  background:
-    radial-gradient(circle at 18px 20px, #fff8ea 0 16px, transparent 17px),
-    radial-gradient(circle at 52px 18px, #fffdf5 0 18px, transparent 19px),
-    radial-gradient(circle at 88px 22px, #fff8ea 0 15px, transparent 16px),
-    radial-gradient(circle at 124px 18px, #fffdf5 0 17px, transparent 18px),
-    radial-gradient(circle at 158px 22px, #fff8ea 0 14px, transparent 15px);
-  background-size: 180px 42px;
-  background-repeat: repeat-x;
-  animation: foam-drift-smooth 9s ease-in-out infinite;
-  transition: bottom 0.12s linear;
-  opacity: 0.98;
-}
-
-@keyframes beer-shimmer {
-  0% {
-    background-position:
-      -260px 0,
-      420px 0;
-  }
-
-  100% {
-    background-position:
-      260px 0,
-      -420px 0;
-  }
-}
-
-@keyframes beer-bubbles-slow {
-  0% {
-    background-position:
-      14px 260px,
-      80px 340px,
-      42px 190px,
-      120px 380px;
-  }
-
-  100% {
-    background-position:
-      14px -520px,
-      80px -460px,
-      42px -390px,
-      120px -620px;
-  }
-}
-
-@keyframes foam-drift-smooth {
-  0% {
-    transform: translateX(0) scaleY(1);
-  }
-
-  25% {
-    transform: translateX(8px) scaleY(1.03);
-  }
-
-  50% {
-    transform: translateX(16px) scaleY(0.98);
-  }
-
-  75% {
-    transform: translateX(7px) scaleY(1.02);
-  }
-
-  100% {
-    transform: translateX(0) scaleY(1);
-  }
-}
-
-.beer-foam {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(var(--beer-fill) - 18px);
-  height: 42px;
-  z-index: 2;
-  background:
-    radial-gradient(circle at 18px 20px, #fff8ea 0 16px, transparent 17px),
-    radial-gradient(circle at 52px 18px, #fffdf5 0 18px, transparent 19px),
-    radial-gradient(circle at 88px 22px, #fff8ea 0 15px, transparent 16px),
-    radial-gradient(circle at 124px 18px, #fffdf5 0 17px, transparent 18px);
-  background-size: 140px 42px;
-  background-repeat: repeat-x;
-  animation: foam-drift 2.8s ease-in-out infinite;
-  transition: bottom 0.12s linear;
-  opacity: 0.98;
-}
-
-.beer-side.left::after,
-.beer-side.right::after {
-  content: "";
-  position: absolute;
+  left: 50%;
   top: 0;
-  bottom: 0;
-  width: 26px;
-  z-index: 3;
-}
+  width: 200%;
+  height: 300vh;
+  object-fit: cover;
+  opacity: 0.95;
 
-.beer-side.left::after {
-  right: 0;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.45), transparent);
-}
-
-.beer-side.right::after {
-  left: 0;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.45), transparent);
-}
-
-@keyframes beer-flow {
-  0% {
-    transform: translateY(-80px);
-  }
-
-  100% {
-    transform: translateY(80px);
-  }
-}
-
-@keyframes beer-bubbles {
-  0% {
-    transform: translateY(80px);
-  }
-
-  100% {
-    transform: translateY(-180px);
-  }
-}
-
-@keyframes foam-drift {
-  0% {
-    transform: translateX(0);
-  }
-
-  50% {
-    transform: translateX(12px);
-  }
-
-  100% {
-    transform: translateX(0);
-  }
+  transform: translateX(-50%) translateY(calc(var(--beer-progress) * -200vh));
+  transition: transform none;
 }
 
 .navbar {
@@ -350,6 +121,78 @@ main > *:not(.beer-side) {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.hero-logo-card {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  background: transparent;
+}
+
+.hero-logo-link {
+  position: relative;
+  display: inline-block;
+  width: min(520px, 85vw);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.hero-logo-image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  box-shadow: none;
+  background: transparent;
+}
+
+.hero-logo-water {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 55%;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(100%);
+  transition:
+    transform 0.55s ease,
+    opacity 0.25s ease;
+  mix-blend-mode: screen;
+}
+
+.hero-logo-link:hover .hero-logo-water {
+  opacity: 0.9;
+  transform: translateY(0);
+}
+
+.hero-logo-link:hover .hero-logo-image {
+  transform: scale(1.03);
+}
+
+@keyframes logo-hover-bob {
+  0% {
+    transform: scale(1.2) translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(1.28) translateY(-8px) rotate(2deg);
+  }
+
+  100% {
+    transform: scale(1.2) translateY(0) rotate(0deg);
+  }
+}
+
 .hero-content {
   max-width: 1120px;
   margin: 0 auto;
@@ -358,6 +201,51 @@ main > *:not(.beer-side) {
   grid-template-columns: 1.05fr 0.95fr;
   gap: 48px;
   align-items: center;
+}
+
+.hero-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0;
+}
+
+.hero-title {
+  margin-bottom: 14px;
+  font-size: clamp(58px, 9vw, 110px);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.hero-hook {
+  max-width: 780px;
+  margin-bottom: 20px;
+  font-size: clamp(24px, 3vw, 40px);
+  line-height: 1.2;
+  font-weight: 700;
+  color: #fff1d6;
+}
+
+.hero-text-centered {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.hero-buttons {
+  justify-content: center;
+}
+
+.hero-card-centered {
+  width: 100%;
+  max-width: 520px;
+  margin-top: 40px;
+}
+
+.mockup-spacer {
+  flex: 1;
 }
 
 .tag {
@@ -377,7 +265,8 @@ h2,
 h3,
 h4,
 p {
-  margin-top: 0;
+  color: #fff1d6;
+  line-height: 1.75;
 }
 
 h1 {
@@ -415,7 +304,7 @@ p {
 }
 
 .small-note {
-  color: #a8a29e;
+  color: #f5d9aa;
   font-size: 14px;
 }
 
@@ -509,8 +398,8 @@ p {
 .contents-grid article,
 .faq-grid article,
 .puke-card {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(22, 11, 11, 0.72);
   border-radius: 26px;
   padding: 26px;
 }
@@ -699,7 +588,7 @@ footer p {
   position: absolute;
   inset: 0;
   border-radius: 26px;
-  background-image: url("/images/harpoonslogo.png");
+  background-image: url("/images/harpoonslogo1.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -798,7 +687,10 @@ footer p {
   }
 
   .nav-links {
-    display: none;
+    display: flex;
+    gap: 24px;
+    color: #fff1d6;
+    font-size: 14px;
   }
 
   .mockup {
@@ -832,5 +724,61 @@ footer p {
 
   .nav-button {
     display: none;
+  }
+}
+
+.card-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 36px;
+}
+
+.card-row-panel {
+  text-align: center;
+}
+
+.card-row-panel > p {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.drink-card-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.utility-image-box {
+  width: 100%;
+  max-width: 980px;
+  margin: 30px auto 0;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 24px;
+  padding: 18px;
+  overflow: hidden;
+}
+
+.utility-cards-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: contain;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.42);
+}
+
+@media (max-width: 900px) {
+  .drink-card-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .drink-card-row {
+    grid-template-columns: 1fr;
   }
 }

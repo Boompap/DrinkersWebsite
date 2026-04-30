@@ -34,33 +34,6 @@ const drinkCards = [
   },
 ];
 
-const utilityCards = [
-  {
-    name: "Water",
-    text: "Choose any player and apply -10% to their alcohol meter.",
-  },
-  {
-    name: "Snack",
-    text: "Choose any player and apply -15% to their alcohol meter.",
-  },
-  {
-    name: "Cheers",
-    text: "All players apply +5% to their alcohol meter.",
-  },
-  {
-    name: "Spill",
-    text: "Cancel a Drink card played by another player before it resolves.",
-  },
-  {
-    name: "Coffee",
-    text: "Ignore a card effect that would apply to you.",
-  },
-  {
-    name: "Recycle",
-    text: "Draw the last discarded card.",
-  },
-];
-
 const faq = [
   {
     question: "Do I have to play cards on my turn?",
@@ -94,39 +67,38 @@ const faq = [
 ];
 
 function App() {
-  const [beerFill, setBeerFill] = useState(0);
+  const [beerProgress, setBeerProgress] = useState(0);
 
   useEffect(() => {
-    const updateBeerFill = () => {
+    const updateBeerProgress = () => {
       const scrollTop = window.scrollY;
       const pageHeight =
         document.documentElement.scrollHeight - window.innerHeight;
 
       const progress = pageHeight > 0 ? scrollTop / pageHeight : 0;
-      setBeerFill(Math.min(100, Math.max(0, progress * 100)));
+      setBeerProgress(Math.min(1, Math.max(0, progress)));
     };
 
-    updateBeerFill();
-    window.addEventListener("scroll", updateBeerFill);
+    updateBeerProgress();
+    window.addEventListener("scroll", updateBeerProgress);
 
-    return () => window.removeEventListener("scroll", updateBeerFill);
+    return () => window.removeEventListener("scroll", updateBeerProgress);
   }, []);
 
   return (
-    <main style={{ "--beer-fill": `${beerFill}%` }}>
-      <div className="beer-side left" aria-hidden="true">
-        <div className="beer-glass">
-          <div className="beer-foam"></div>
-          <div className="beer-liquid"></div>
-        </div>
+    <main style={{ "--beer-progress": beerProgress }}>
+      <div className="beer-video-side left" aria-hidden="true">
+        <video autoPlay muted loop playsInline>
+          <source src="/videos/beerleftside.mp4" type="video/mp4" />
+        </video>
       </div>
 
-      <div className="beer-side right" aria-hidden="true">
-        <div className="beer-glass">
-          <div className="beer-foam"></div>
-          <div className="beer-liquid"></div>
-        </div>
+      <div className="beer-video-side right" aria-hidden="true">
+        <video autoPlay muted loop playsInline>
+          <source src="/videos/beerrightside.mp4" type="video/mp4" />
+        </video>
       </div>
+
       <header className="navbar">
         <div className="nav-inner">
           <a href="#top" className="logo">
@@ -147,48 +119,65 @@ function App() {
       </header>
 
       <section id="top" className="hero">
-        <div className="hero-content">
-          <div>
-            <p className="tag">Coming soon to Kickstarter</p>
+        <div className="hero-content hero-centered">
+          <p className="tag">Coming soon to Kickstarter</p>
 
-            <h1>
-              The chaotic card game of risky drinks, table sabotage, and perfect
-              timing.
-            </h1>
+          <h1 className="hero-title">Drinkers 1000</h1>
 
-            <p className="hero-text">
-              Drinkers 1000 is an alcohol-themed party card game where players
-              race to hit exactly 100% on their alcohol meter. Push your luck,
-              play clever combos, mess with the table, and avoid going over the
-              limit.
-            </p>
+          <p className="hero-hook">
+            The chaotic card game of risky drinks, table sabotage, and perfect
+            timing.
+          </p>
 
-            <p className="small-note">
-              No real drinking is required to play. The alcohol meter is the
-              game’s score system.
-            </p>
+          <p className="hero-text hero-text-centered">
+            Drinkers 1000 is an alcohol-themed party card game where players
+            race to hit exactly 100% on their alcohol meter. Push your luck,
+            play clever combos, mess with the table, and avoid going over the
+            limit.
+          </p>
 
-            <div className="button-row">
-              <a href="#notify" className="primary-button">
-                Notify Me on Launch
-              </a>
+          <p className="small-note">
+            No real drinking is required to play. The alcohol meter is the
+            game’s score system.
+          </p>
 
-              <a href="#how" className="secondary-button">
-                Learn How It Plays
-              </a>
-            </div>
+          <div className="button-row hero-buttons">
+            <a href="#notify" className="primary-button">
+              Notify Me on Launch
+            </a>
+
+            <a href="#how" className="secondary-button">
+              Learn How It Plays
+            </a>
           </div>
 
-          <div className="hero-card">
-            <div className="mockup">
-              <div className="mockup-title">
-                <h2>Drinkers 1000</h2>
-              </div>
+          <div className="hero-logo-card">
+            <a
+              className="hero-logo-link"
+              href="https://your-link-here.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                className="hero-logo-image"
+                src="/images/harpoonslogo1.png"
+                alt="Harpoon Games logo"
+              />
 
-              <p className="mockup-subtitle">
-                A party game made by Harpoon Games
-              </p>
-            </div>
+              <video
+                className="hero-logo-water"
+                autoPlay
+                muted
+                loop
+                playsInline
+              >
+                <source src="/videos/waves1.mp4" type="video/mp4" />
+              </video>
+            </a>
+
+            <p className="mockup-subtitle">
+              A party game made by Harpoon Games
+            </p>
           </div>
         </div>
       </section>
@@ -249,41 +238,41 @@ function App() {
         <p className="section-label">The Cards</p>
         <h2>Two card types, endless bad decisions.</h2>
 
-        <div className="card-columns">
-          <div className="card-panel">
+        <div className="card-rows">
+          <div className="card-panel card-row-panel">
             <h3>Drink Cards</h3>
             <p>
               Drink cards are the heart of the game. Each one adds alcohol
               percentage to your meter and triggers a unique effect.
             </p>
 
-            <div className="card-grid">
+            <div className="drink-card-row">
               {drinkCards.map((card) => (
                 <article className="game-card" key={card.name}>
                   <div className="card-title-row">
                     <h4>{card.name}</h4>
                     <strong>{card.percent}</strong>
                   </div>
+
                   <p>{card.text}</p>
                 </article>
               ))}
             </div>
           </div>
 
-          <div className="card-panel">
+          <div className="card-panel card-row-panel">
             <h3>Utility Cards</h3>
             <p>
               Utility cards twist the rules. Use them to adjust meters, defend
               yourself, disrupt others, or set up the perfect combo.
             </p>
 
-            <div className="card-grid">
-              {utilityCards.map((card) => (
-                <article className="game-card" key={card.name}>
-                  <h4>{card.name}</h4>
-                  <p>{card.text}</p>
-                </article>
-              ))}
+            <div className="utility-image-box">
+              <img
+                className="utility-cards-image"
+                src="/images/utilitycards.png"
+                alt="Utility cards from Drinkers 1000"
+              />
             </div>
           </div>
         </div>
@@ -291,6 +280,7 @@ function App() {
 
       <section className="section dark-section">
         <p className="section-label">Combos & Chaos</p>
+
         <h2>
           Cards change each other when played alongside the right partner.
         </h2>
