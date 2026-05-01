@@ -65,7 +65,7 @@ main > *:not(.beer-video-side) {
   opacity: 0.95;
 
   transform: translateX(-50%) translateY(calc(var(--beer-progress) * -200vh));
-  transition: transform none;
+  transition: none;
 }
 
 .navbar {
@@ -216,6 +216,22 @@ main > *:not(.beer-video-side) {
   font-size: clamp(58px, 9vw, 110px);
   line-height: 0.95;
   letter-spacing: -0.06em;
+}
+
+.hero-title-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.hero-title-link:hover .hero-title {
+  transform: scale(1.04);
+  color: #fcd34d;
+}
+
+.hero-title {
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
 }
 
 .hero-hook {
@@ -392,7 +408,34 @@ p {
   gap: 18px;
 }
 
-.quick-points article,
+.tavern-banner {
+  max-width: 1120px;
+  min-height: 360px;
+  margin: 0 auto;
+  border-radius: 34px;
+  overflow: hidden;
+  position: relative;
+  background:
+    linear-gradient(rgba(22, 11, 11, 0.3), rgba(22, 11, 11, 0.72)),
+    url("/images/bar.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+.tavern-banner-content {
+  max-width: 760px;
+}
+
+.tavern-banner h2 {
+  margin-bottom: 0;
+}
+
+.quick-points article:not(.image-strip-card),
 .card-panel,
 .combo-grid article,
 .contents-grid article,
@@ -402,6 +445,44 @@ p {
   background: rgba(22, 11, 11, 0.72);
   border-radius: 26px;
   padding: 26px;
+}
+
+.image-card-strip {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.image-strip-card {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 26px;
+  padding: 26px;
+  background:
+    linear-gradient(rgba(22, 11, 11, 0.3), rgba(22, 11, 11, 0.78)),
+    url("/images/bar.png");
+  background-repeat: no-repeat;
+  background-size: 1120px 520px;
+  background-position-y: center;
+  text-align: center;
+}
+
+.image-strip-1 {
+  background-position-x: 0%;
+}
+
+.image-strip-2 {
+  background-position-x: 33.33%;
+}
+
+.image-strip-3 {
+  background-position-x: 66.66%;
+}
+
+.image-strip-4 {
+  background-position-x: 100%;
 }
 
 .dark-section {
@@ -781,4 +862,43 @@ footer p {
   .drink-card-row {
     grid-template-columns: 1fr;
   }
+}
+
+.image-card-strip {
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+
+.image-strip-card {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 26px;
+  padding: 26px;
+  text-align: center;
+
+  background-image:
+    linear-gradient(rgba(22, 11, 11, 0.25), rgba(22, 11, 11, 0.78)),
+    url("/images/bar.png") !important;
+  background-repeat: no-repeat !important;
+  background-size: 1000px auto !important;
+  background-position-y: 65% !important;
+}
+
+.image-strip-1 {
+  background-position-x: 0% !important;
+}
+
+.image-strip-2 {
+  background-position-x: 33.33% !important;
+}
+
+.image-strip-3 {
+  background-position-x: 66.66% !important;
+}
+
+.image-strip-4 {
+  background-position-x: 100% !important;
 }

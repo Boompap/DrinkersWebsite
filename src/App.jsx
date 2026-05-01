@@ -122,7 +122,14 @@ function App() {
         <div className="hero-content hero-centered">
           <p className="tag">Coming soon to Kickstarter</p>
 
-          <h1 className="hero-title">Drinkers 1000</h1>
+          <a
+            className="hero-title-link"
+            href="https://your-link-here.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <h1 className="hero-title">Drinkers 1000</h1>
+          </a>
 
           <p className="hero-hook">
             The chaotic card game of risky drinks, table sabotage, and perfect
@@ -182,8 +189,8 @@ function App() {
         </div>
       </section>
 
-      <section className="quick-points">
-        <article>
+      <section className="quick-points image-card-strip">
+        <article className="image-strip-card image-strip-1">
           <h3>Fast to learn</h3>
           <p>
             Play 1 Drink card and 1 Utility card each turn, then draw at the end
@@ -191,7 +198,7 @@ function App() {
           </p>
         </article>
 
-        <article>
+        <article className="image-strip-card image-strip-2">
           <h3>Always unstable</h3>
           <p>
             Cards can boost, lower, cancel, steal, recycle, reveal, or force
@@ -199,12 +206,17 @@ function App() {
           </p>
         </article>
 
-        <article>
+        <article className="image-strip-card image-strip-3">
           <h3>Win at 100%</h3>
           <p>
             Land exactly on 100% at the start or end of your turn to win the
             game.
           </p>
+        </article>
+
+        <article className="image-strip-card image-strip-4">
+          <h3>The Table Awaits</h3>
+          <p>Every round feels like a bad idea waiting to happen.</p>
         </article>
       </section>
 
