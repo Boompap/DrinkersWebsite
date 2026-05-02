@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 const drinkCards = [
@@ -68,6 +68,29 @@ const faq = [
 
 function App() {
   const [beerProgress, setBeerProgress] = useState(0);
+  const barrelSoundOneRef = useRef(null);
+  const barrelSoundTwoRef = useRef(null);
+
+  const playBarrelSound = (event) => {
+    const clickedElement = event.target;
+
+    if (
+      clickedElement.closest(
+        "a, button, input, textarea, select, video, img, .card-panel, .game-card, .puke-card, .contents-grid article, .faq-grid article, .combo-grid article, .image-strip-card, .hero-logo-link",
+      )
+    ) {
+      return;
+    }
+
+    const sounds = [barrelSoundOneRef.current, barrelSoundTwoRef.current];
+    const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+
+    if (randomSound) {
+      randomSound.currentTime = 0;
+      randomSound.volume = 0.2;
+      randomSound.play();
+    }
+  };
 
   useEffect(() => {
     const updateBeerProgress = () => {
@@ -86,7 +109,15 @@ function App() {
   }, []);
 
   return (
-    <main style={{ "--beer-progress": beerProgress }}>
+    <main style={{ "--beer-progress": beerProgress }} onClick={playBarrelSound}>
+      <audio ref={barrelSoundOneRef} preload="auto">
+        <source src="/sounds/woodendoor.wav" type="audio/wav" />
+      </audio>
+
+      <audio ref={barrelSoundTwoRef} preload="auto">
+        <source src="/sounds/woodentable.wav" type="audio/wav" />
+      </audio>
+
       <div className="beer-video-side left" aria-hidden="true">
         <video autoPlay muted loop playsInline>
           <source src="/videos/beerleftside.mp4" type="video/mp4" />
@@ -127,8 +158,69 @@ function App() {
             href="https://your-link-here.com"
             target="_blank"
             rel="noreferrer"
+            aria-label="Drinkers 1000"
           >
-            <h1 className="hero-title">Drinkers 1000</h1>
+            <svg
+              className="hero-title-svg"
+              viewBox="0 0 1200 180"
+              role="img"
+              aria-labelledby="drinkers-title"
+            >
+              <title id="drinkers-title">Drinkers 1000</title>
+
+              <defs>
+                <mask id="drinkersTitleMask">
+                  <rect width="1200" height="180" fill="black" />
+
+                  <text
+                    x="50%"
+                    y="50%"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fontFamily="Arial, Helvetica, sans-serif"
+                    fontSize="145"
+                    fontWeight="900"
+                    letterSpacing="-8"
+                    fill="white"
+                  >
+                    Drinkers 1000
+                  </text>
+                </mask>
+              </defs>
+
+              <text
+                x="50%"
+                y="50%"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fontFamily="Arial, Helvetica, sans-serif"
+                fontSize="145"
+                fontWeight="900"
+                letterSpacing="-8"
+                fill="#fcd34d"
+              >
+                Drinkers 1000
+              </text>
+
+              <foreignObject
+                x="0"
+                y="0"
+                width="1200"
+                height="180"
+                mask="url(#drinkersTitleMask)"
+                className="hero-title-foam-object"
+              >
+                <video
+                  className="hero-title-foam-video"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                >
+                  <source src="/videos/beerfoam.mp4" type="video/mp4" />
+                </video>
+              </foreignObject>
+            </svg>
           </a>
 
           <p className="hero-hook">
@@ -136,12 +228,14 @@ function App() {
             timing.
           </p>
 
-          <p className="hero-text hero-text-centered">
-            Drinkers 1000 is an alcohol-themed party card game where players
-            race to hit exactly 100% on their alcohol meter. Push your luck,
-            play clever combos, mess with the table, and avoid going over the
-            limit.
-          </p>
+          <div className="hero-description-box">
+            <p className="hero-text hero-text-centered">
+              Drinkers 1000 is an alcohol-themed party card game where players
+              race to hit exactly 100% on their alcohol meter. Push your luck,
+              play clever combos, mess with the table, and avoid going over the
+              limit.
+            </p>
+          </div>
 
           <p className="small-note">
             No real drinking is required to play. The alcohol meter is the
@@ -251,40 +345,37 @@ function App() {
         <h2>Two card types, endless bad decisions.</h2>
 
         <div className="card-rows">
-          <div className="card-panel card-row-panel">
+          <div className="card-panel card-row-panel drink-panel-bg">
             <h3>Drink Cards</h3>
             <p>
-              Drink cards are the heart of the game. Each one adds alcohol
-              percentage to your meter and triggers a unique effect.
+              <p>
+                Drink cards are the heart of the game. Each one adds alcohol
+                percentage to your meter and triggers a unique effect. The cards
+                shown below are example samples from the game.
+              </p>
             </p>
 
-            <div className="drink-card-row">
-              {drinkCards.map((card) => (
-                <article className="game-card" key={card.name}>
-                  <div className="card-title-row">
-                    <h4>{card.name}</h4>
-                    <strong>{card.percent}</strong>
-                  </div>
-
-                  <p>{card.text}</p>
-                </article>
-              ))}
+            <div className="drink-image-row">
+              <img src="/images/Beer.png" alt="Drink card 1" />
+              <img src="/images/Cocktail.png" alt="Drink card 2" />
+              <img src="/images/Rum.png" alt="Drink card 3" />
             </div>
           </div>
 
-          <div className="card-panel card-row-panel">
+          <div className="card-panel card-row-panel utility-panel-bg">
             <h3>Utility Cards</h3>
             <p>
-              Utility cards twist the rules. Use them to adjust meters, defend
-              yourself, disrupt others, or set up the perfect combo.
+              <p>
+                Utility cards twist the rules. Use them to adjust meters, defend
+                yourself, disrupt others, or set up the perfect combo. The cards
+                shown below are example samples from the game.
+              </p>
             </p>
 
-            <div className="utility-image-box">
-              <img
-                className="utility-cards-image"
-                src="/images/utilitycards.png"
-                alt="Utility cards from Drinkers 1000"
-              />
+            <div className="utility-image-row">
+              <img src="/images/SaltRim.png" alt="Utility card 1" />
+              <img src="/images/LemonSlice.png" alt="Utility card 2" />
+              <img src="/images/Recycle.png" alt="Utility card 3" />
             </div>
           </div>
         </div>
