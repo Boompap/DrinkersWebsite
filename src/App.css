@@ -31,7 +31,7 @@ main {
   background-attachment: fixed;
 }
 
-main > *:not(.beer-video-side) {
+main > *:not(.beer-video-side):not(.navbar) {
   position: relative;
   z-index: 1;
 }
@@ -41,8 +41,9 @@ main > *:not(.beer-video-side) {
   top: 0;
   bottom: 0;
   width: max(0px, calc((100vw - 1120px) / 2));
-  pointer-events: none;
-  z-index: 0;
+  pointer-events: auto;
+  cursor: url("/images/beercursor.cur"), pointer;
+  z-index: 2;
   overflow: hidden;
   background: #160b0b;
 }
@@ -63,18 +64,22 @@ main > *:not(.beer-video-side) {
   height: 300vh;
   object-fit: cover;
   opacity: 0.95;
+  pointer-events: none;
 
   transform: translateX(-50%) translateY(calc(var(--beer-progress) * -200vh));
   transition: none;
 }
 
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 50;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(22, 11, 11, 0.88);
   backdrop-filter: blur(14px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
 }
 
 .nav-inner {
@@ -118,7 +123,17 @@ main > *:not(.beer-video-side) {
 }
 
 .hero {
+  padding-top: 74px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#top,
+#how,
+#cards,
+#box,
+#faq,
+#notify {
+  scroll-margin-top: 90px;
 }
 
 .hero-description-box {
@@ -290,6 +305,18 @@ main > *:not(.beer-video-side) {
   font-size: 14px;
   font-weight: 800;
   margin-bottom: 20px;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.tag:hover {
+  background: rgba(252, 211, 77, 0.2);
+  border-color: rgba(252, 211, 77, 0.65);
+  color: #fff1d6;
+  transform: translateY(-1px);
 }
 
 h1,
@@ -453,14 +480,55 @@ p {
 
 .quick-points article:not(.image-strip-card),
 .card-panel,
-.combo-grid article,
-.contents-grid article,
-.faq-grid article,
-.puke-card {
+.contents-grid article {
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(22, 11, 11, 0.72);
   border-radius: 26px;
   padding: 26px;
+}
+
+.puke-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(248, 113, 113, 0.18);
+  border-radius: 26px;
+  padding: 26px;
+  background: url("/images/brokenglass.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-clip: padding-box;
+  box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.85);
+}
+
+.puke-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 4, 4, 0.94) 0%,
+    rgba(22, 11, 11, 0.78) 18%,
+    rgba(22, 11, 11, 0.78) 82%,
+    rgba(8, 4, 4, 0.94) 100%
+  );
+  pointer-events: none;
+}
+
+.puke-card span,
+.puke-card h3,
+.puke-card p {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+}
+
+.puke-card span {
+  font-size: 60px;
+  display: block;
+  margin-bottom: 16px;
 }
 
 .image-strip-card {
@@ -524,17 +592,6 @@ p {
   margin-bottom: 14px;
 }
 
-.puke-card {
-  background: rgba(127, 29, 29, 0.32);
-  border-color: rgba(248, 113, 113, 0.3);
-}
-
-.puke-card span {
-  font-size: 60px;
-  display: block;
-  margin-bottom: 16px;
-}
-
 .card-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -579,8 +636,63 @@ p {
 .combo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: 22px;
   margin-top: 36px;
+}
+
+.combo-video-card {
+  position: relative;
+  z-index: 2;
+  min-height: 280px;
+  padding: 34px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 26px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #100707;
+  text-align: center;
+}
+
+.combo-card-video {
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  width: 300%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.combo-video-left {
+  left: 0;
+}
+
+.combo-video-center {
+  left: -100%;
+}
+
+.combo-video-right {
+  left: -200%;
+}
+
+.combo-video-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(8, 4, 4, 0.72);
+  pointer-events: none;
+}
+
+.combo-video-card h3,
+.combo-video-card p {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.85);
+}
+
+.combo-video-card p {
+  margin-bottom: 0;
 }
 
 .contents-grid {
@@ -604,7 +716,8 @@ p {
 
 .wide-text {
   max-width: 780px;
-  margin-top: 32px;
+  margin: 32px auto 0;
+  text-align: center;
 }
 
 .faq-grid {
@@ -614,8 +727,94 @@ p {
   margin-top: 36px;
 }
 
+.faq-grid article {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 26px;
+  padding: 26px;
+  background:
+    linear-gradient(rgba(8, 4, 4, 0.78), rgba(8, 4, 4, 0.88)),
+    url("/images/vineyard.png");
+  background-size: 1120px auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-clip: padding-box;
+  box-shadow: inset 0 0 70px rgba(0, 0, 0, 0.8);
+}
+
+.faq-grid article h3,
+.faq-grid article p {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.85);
+}
+
 .cta-section {
   padding: 20px 24px 76px;
+}
+
+.contact-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+  background: url("/images/envelope.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.contact-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 4, 4, 0.96) 0%,
+    rgba(8, 4, 4, 0.86) 18%,
+    rgba(8, 4, 4, 0.86) 82%,
+    rgba(8, 4, 4, 0.96) 100%
+  );
+  pointer-events: none;
+}
+
+.contact-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.95);
+  pointer-events: none;
+}
+
+.contact-box {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.contact-box p {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.email-link {
+  color: #fcd34d;
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.email-link:hover {
+  color: #fde68a;
 }
 
 .cta-box {

@@ -66,10 +66,24 @@ const faq = [
   },
 ];
 
+const comboVideos = ["/videos/limesvideo.mp4", "/videos/lemonsvideo.mp4"];
+
 function App() {
   const [beerProgress, setBeerProgress] = useState(0);
+  const [comboVideoIndex, setComboVideoIndex] = useState(0);
+
   const barrelSoundOneRef = useRef(null);
   const barrelSoundTwoRef = useRef(null);
+  const beerSoundRef = useRef(null);
+  const beerSoundTimeoutRef = useRef(null);
+
+  const currentComboVideo = comboVideos[comboVideoIndex];
+
+  const playNextComboVideo = () => {
+    setComboVideoIndex(
+      (currentIndex) => (currentIndex + 1) % comboVideos.length,
+    );
+  };
 
   const playBarrelSound = (event) => {
     const clickedElement = event.target;
@@ -89,6 +103,25 @@ function App() {
       randomSound.currentTime = 0;
       randomSound.volume = 0.2;
       randomSound.play();
+    }
+  };
+
+  const playBeerSound = (event) => {
+    event.stopPropagation();
+
+    const sound = beerSoundRef.current;
+
+    if (sound) {
+      clearTimeout(beerSoundTimeoutRef.current);
+
+      sound.currentTime = 0;
+      sound.volume = 0.2;
+      sound.play();
+
+      beerSoundTimeoutRef.current = setTimeout(() => {
+        sound.pause();
+        sound.currentTime = 0;
+      }, 2500);
     }
   };
 
@@ -118,13 +151,25 @@ function App() {
         <source src="/sounds/woodentable.wav" type="audio/wav" />
       </audio>
 
-      <div className="beer-video-side left" aria-hidden="true">
+      <audio ref={beerSoundRef} preload="auto">
+        <source src="/sounds/beerclick.mp3" type="audio/mpeg" />
+      </audio>
+
+      <div
+        className="beer-video-side left"
+        aria-hidden="true"
+        onClick={playBeerSound}
+      >
         <video autoPlay muted loop playsInline>
           <source src="/videos/beerleftside.mp4" type="video/mp4" />
         </video>
       </div>
 
-      <div className="beer-video-side right" aria-hidden="true">
+      <div
+        className="beer-video-side right"
+        aria-hidden="true"
+        onClick={playBeerSound}
+      >
         <video autoPlay muted loop playsInline>
           <source src="/videos/beerrightside.mp4" type="video/mp4" />
         </video>
@@ -151,7 +196,14 @@ function App() {
 
       <section id="top" className="hero">
         <div className="hero-content hero-centered">
-          <p className="tag">Coming soon to Kickstarter</p>
+          <a
+            className="tag"
+            href="https://your-kickstarter-link-here.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Now on Kickstarter
+          </a>
 
           <a
             className="hero-title-link"
@@ -347,12 +399,11 @@ function App() {
         <div className="card-rows">
           <div className="card-panel card-row-panel drink-panel-bg">
             <h3>Drink Cards</h3>
+
             <p>
-              <p>
-                Drink cards are the heart of the game. Each one adds alcohol
-                percentage to your meter and triggers a unique effect. The cards
-                shown below are example samples from the game.
-              </p>
+              Drink cards are the heart of the game. Each one adds alcohol
+              percentage to your meter and triggers a unique effect. The cards
+              shown below are example samples from the game.
             </p>
 
             <div className="drink-image-row">
@@ -365,13 +416,10 @@ function App() {
           <div className="card-panel card-row-panel utility-panel-bg">
             <h3>Utility Cards</h3>
             <p>
-              <p>
-                Utility cards twist the rules. Use them to adjust meters, defend
-                yourself, disrupt others, or set up the perfect combo. The cards
-                shown below are example samples from the game.
-              </p>
+              Utility cards twist the rules. Use them to adjust meters, defend
+              yourself, disrupt others, or set up the perfect combo. The cards
+              shown below are example samples from the game.
             </p>
-
             <div className="utility-image-row">
               <img src="/images/SaltRim.png" alt="Utility card 1" />
               <img src="/images/LemonSlice.png" alt="Utility card 2" />
@@ -389,14 +437,35 @@ function App() {
         </h2>
 
         <div className="combo-grid">
-          <article>
+          <article className="combo-video-card">
+            <video
+              key={`combo-one-${currentComboVideo}`}
+              className="combo-card-video combo-video-left"
+              autoPlay
+              muted
+              playsInline
+              onEnded={playNextComboVideo}
+            >
+              <source src={currentComboVideo} type="video/mp4" />
+            </video>
+
             <h3>Beer + Salt Rim</h3>
             <p>
               Ignore Salt Rim’s discard requirement and keep the pressure going.
             </p>
           </article>
 
-          <article>
+          <article className="combo-video-card">
+            <video
+              key={`combo-two-${currentComboVideo}`}
+              className="combo-card-video combo-video-center"
+              autoPlay
+              muted
+              playsInline
+            >
+              <source src={currentComboVideo} type="video/mp4" />
+            </video>
+
             <h3>White Wine + Soda</h3>
             <p>
               Turn a clean Utility into a dangerous +15% swing, then discard 1
@@ -404,7 +473,17 @@ function App() {
             </p>
           </article>
 
-          <article>
+          <article className="combo-video-card">
+            <video
+              key={`combo-three-${currentComboVideo}`}
+              className="combo-card-video combo-video-right"
+              autoPlay
+              muted
+              playsInline
+            >
+              <source src={currentComboVideo} type="video/mp4" />
+            </video>
+
             <h3>Sake + Overpoured Glass</h3>
             <p>
               Draw a card while everyone else discards, flipping a friendly
@@ -477,6 +556,29 @@ function App() {
         </div>
       </section>
 
+      <section className="section dark-section contact-section">
+        <div className="contact-box">
+          <p className="section-label">Still Have Questions?</p>
+
+          <h2>Contact us anytime.</h2>
+
+          <p>
+            If you have more questions about Drinkers 1000, the Kickstarter
+            campaign, shipping, gameplay, or anything else, feel free to contact
+            us at{" "}
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=harpoongames@gmail.com"
+              className="email-link"
+              target="_blank"
+              rel="noreferrer"
+            >
+              harpoongames@gmail.com
+            </a>
+            .
+          </p>
+        </div>
+      </section>
+
       <section id="notify" className="cta-section">
         <div className="cta-box">
           <div>
@@ -488,7 +590,7 @@ function App() {
           </div>
 
           <a href="#" className="cta-button">
-            Kickstarter Link Placeholder
+            Join now on Kickstarter!
           </a>
         </div>
       </section>
