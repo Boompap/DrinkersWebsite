@@ -1268,3 +1268,163 @@ footer p {
     rgba(5, 2, 2, 0.98) 100%
   );
 }
+
+@media (max-width: 600px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  @media (max-width: 600px) {
+    main {
+      background: none;
+      background-attachment: scroll;
+    }
+
+    main::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        linear-gradient(rgba(22, 11, 11, 0.35), rgba(22, 11, 11, 0.55)),
+        url("/images/barreltexture.png");
+      background-size: 520px auto;
+      background-repeat: repeat-y;
+      background-position: center top;
+      pointer-events: none;
+    }
+  }
+
+  .navbar {
+    position: fixed;
+  }
+
+  .nav-inner {
+    padding: 12px 14px 10px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .logo {
+    font-size: 24px;
+    line-height: 1;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    gap: 16px;
+    font-size: 12px;
+    line-height: 1.15;
+    flex-wrap: nowrap;
+  }
+
+  .nav-links a {
+    white-space: nowrap;
+  }
+
+  .hero {
+    padding-top: 112px;
+  }
+
+  #top,
+  #how,
+  #cards,
+  #box,
+  #faq,
+  #notify {
+    scroll-margin-top: 120px;
+  }
+
+  .section {
+    padding: 56px 22px;
+  }
+
+  h2 {
+    font-size: clamp(30px, 9vw, 38px);
+    line-height: 1.08;
+  }
+
+  h3 {
+    font-size: 23px;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .quick-points.image-card-strip {
+    grid-template-columns: 1fr !important;
+    padding: 48px 22px;
+    gap: 22px;
+  }
+
+  .image-strip-card {
+    min-height: 250px;
+    padding: 28px;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+
+  .image-strip-card h3 {
+    font-size: 26px;
+    line-height: 1.2;
+  }
+
+  .image-strip-card p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .beer-video-side {
+    width: 20px;
+    z-index: 3;
+  }
+
+  .beer-video-side video {
+    width: 240%;
+    opacity: 0.85;
+  }
+
+  .hero-title-svg {
+    width: 96vw;
+  }
+
+  .hero-description-box {
+    padding: 20px;
+  }
+
+  .hero-logo-link {
+    width: min(340px, 82vw);
+  }
+
+  .drink-image-row,
+  .utility-image-row,
+  .combo-grid,
+  .faq-grid,
+  .contents-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .combo-video-card {
+    min-height: 240px;
+  }
+
+  .contents-grid article {
+    padding: 24px;
+  }
+
+  .cta-box {
+    padding: 32px 24px;
+    text-align: center;
+  }
+
+  .cta-button {
+    width: 100%;
+  }
+}
