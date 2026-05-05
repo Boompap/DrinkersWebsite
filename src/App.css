@@ -1480,12 +1480,11 @@ video::-webkit-media-controls-start-playback-button {
   }
 
   .combo-card-video {
-    display: none !important;
+    display: block !important;
   }
 
   .combo-video-card {
-    background:
-      linear-gradient(rgba(8, 4, 4, 0.72), rgba(8, 4, 4, 0.86)), #100707 !important;
+    background: #100707 !important;
   }
 
   .faq-grid article {
