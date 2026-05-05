@@ -24,7 +24,7 @@ main {
   min-height: 100vh;
   background:
     linear-gradient(rgba(22, 11, 11, 0.35), rgba(22, 11, 11, 0.55)),
-    url("/images/barreltexture.png");
+    url("/drinkers-1000-website/images/barreltexture.png");
   background-size: 1150px auto;
   background-repeat: repeat;
   background-position: center;
@@ -42,7 +42,7 @@ main > *:not(.beer-video-side):not(.navbar) {
   bottom: 0;
   width: max(0px, calc((100vw - 1120px) / 2));
   pointer-events: auto;
-  cursor: url("/images/beercursor.cur"), pointer;
+  cursor: url("/drinkers-1000-website/images/beercursor.cur"), pointer;
   z-index: 2;
   overflow: hidden;
   background: #160b0b;
@@ -146,7 +146,7 @@ main > *:not(.beer-video-side):not(.navbar) {
   border: 1px solid rgba(255, 255, 255, 0.12);
   background:
     linear-gradient(rgba(22, 11, 11, 0.45), rgba(22, 11, 11, 0.65)),
-    url("/images/bar2.png");
+    url("/drinkers-1000-website/images/bar2.png");
   background-size: cover;
   background-position: center;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
@@ -460,7 +460,7 @@ p {
   position: relative;
   background:
     linear-gradient(rgba(22, 11, 11, 0.3), rgba(22, 11, 11, 0.72)),
-    url("/images/bar.png");
+    url("/drinkers-1000-website/images/bar.png");
   background-size: cover;
   background-position: center;
   display: flex;
@@ -494,7 +494,7 @@ p {
   border: 1px solid rgba(248, 113, 113, 0.18);
   border-radius: 26px;
   padding: 26px;
-  background: url("/images/brokenglass.png");
+  background: url("/drinkers-1000-website/images/brokenglass.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -542,7 +542,7 @@ p {
   padding: 26px;
   background:
     linear-gradient(rgba(22, 11, 11, 0.3), rgba(22, 11, 11, 0.78)),
-    url("/images/bar.png");
+    url("/drinkers-1000-website/images/bar.png");
   background-repeat: no-repeat;
   background-size: 1120px 520px;
   background-position-y: center;
@@ -736,7 +736,7 @@ p {
   padding: 26px;
   background:
     linear-gradient(rgba(8, 4, 4, 0.78), rgba(8, 4, 4, 0.88)),
-    url("/images/vineyard.png");
+    url("/drinkers-1000-website/images/vineyard.png");
   background-size: 1120px auto;
   background-position: center;
   background-repeat: no-repeat;
@@ -761,7 +761,7 @@ p {
   overflow: hidden;
   isolation: isolate;
   text-align: center;
-  background: url("/images/envelope.png");
+  background: url("/drinkers-1000-website/images/envelope.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -880,7 +880,7 @@ footer p {
   position: absolute;
   inset: 0;
   border-radius: 26px;
-  background-image: url("/images/harpoonslogo1.png");
+  background-image: url("/drinkers-1000-website/images/harpoonslogo1.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1092,7 +1092,7 @@ footer p {
 
   background-image:
     linear-gradient(rgba(22, 11, 11, 0.25), rgba(22, 11, 11, 0.78)),
-    url("/images/bar.png") !important;
+    url("/drinkers-1000-website/images/bar.png") !important;
   background-repeat: no-repeat !important;
   background-size: 1000px auto !important;
   background-position-y: 65% !important;
@@ -1217,7 +1217,7 @@ footer p {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image: url("/images/Drinkbackground2.png");
+  background-image: url("/drinkers-1000-website/images/Drinkbackground2.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1240,7 +1240,7 @@ footer p {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image: url("/images/Drinkbackground1.png");
+  background-image: url("/drinkers-1000-website/images/Drinkbackground1.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1275,25 +1275,23 @@ footer p {
     overflow-x: hidden;
   }
 
-  @media (max-width: 600px) {
-    main {
-      background: none;
-      background-attachment: scroll;
-    }
+  main {
+    background: none;
+    background-attachment: scroll;
+  }
 
-    main::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      background:
-        linear-gradient(rgba(22, 11, 11, 0.35), rgba(22, 11, 11, 0.55)),
-        url("/images/barreltexture.png");
-      background-size: 520px auto;
-      background-repeat: repeat-y;
-      background-position: center top;
-      pointer-events: none;
-    }
+  main::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+      linear-gradient(rgba(22, 11, 11, 0.35), rgba(22, 11, 11, 0.55)),
+      url("/drinkers-1000-website/images/barreltexture.png");
+    background-size: 520px auto;
+    background-repeat: repeat-y;
+    background-position: center top;
+    pointer-events: none;
   }
 
   .navbar {

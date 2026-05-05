@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
+const asset = (path) =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+
 const drinkCards = [
   {
     name: "Beer",
@@ -66,7 +69,10 @@ const faq = [
   },
 ];
 
-const comboVideos = ["/videos/limesvideo.mp4", "/videos/lemonsvideo.mp4"];
+const comboVideos = [
+  asset("videos/limesvideo.mp4"),
+  asset("videos/lemonsvideo.mp4"),
+];
 
 function App() {
   const [beerProgress, setBeerProgress] = useState(0);
@@ -144,15 +150,15 @@ function App() {
   return (
     <main style={{ "--beer-progress": beerProgress }} onClick={playBarrelSound}>
       <audio ref={barrelSoundOneRef} preload="auto">
-        <source src="/sounds/woodendoor.wav" type="audio/wav" />
+        <source src={asset("sounds/woodendoor.wav")} type="audio/wav" />
       </audio>
 
       <audio ref={barrelSoundTwoRef} preload="auto">
-        <source src="/sounds/woodentable.wav" type="audio/wav" />
+        <source src={asset("sounds/woodentable.wav")} type="audio/wav" />
       </audio>
 
       <audio ref={beerSoundRef} preload="auto">
-        <source src="/sounds/beerclick.mp3" type="audio/mpeg" />
+        <source src={asset("sounds/beerclick.mp3")} type="audio/mpeg" />
       </audio>
 
       <div
@@ -161,7 +167,7 @@ function App() {
         onClick={playBeerSound}
       >
         <video autoPlay muted loop playsInline>
-          <source src="/videos/beerleftside.mp4" type="video/mp4" />
+          <source src={asset("videos/beerleftside.mp4")} type="video/mp4" />
         </video>
       </div>
 
@@ -171,7 +177,7 @@ function App() {
         onClick={playBeerSound}
       >
         <video autoPlay muted loop playsInline>
-          <source src="/videos/beerrightside.mp4" type="video/mp4" />
+          <source src={asset("videos/beerrightside.mp4")} type="video/mp4" />
         </video>
       </div>
 
@@ -269,7 +275,7 @@ function App() {
                   loop
                   playsInline
                 >
-                  <source src="/videos/beerfoam.mp4" type="video/mp4" />
+                  <source src={asset("videos/beerfoam.mp4")} type="video/mp4" />
                 </video>
               </foreignObject>
             </svg>
@@ -313,7 +319,7 @@ function App() {
             >
               <img
                 className="hero-logo-image"
-                src="/images/harpoonslogo1.png"
+                src={asset("images/harpoonslogo1.png")}
                 alt="Harpoon Games logo"
               />
 
@@ -324,7 +330,7 @@ function App() {
                 loop
                 playsInline
               >
-                <source src="/videos/waves1.mp4" type="video/mp4" />
+                <source src={asset("videos/waves1.mp4")} type="video/mp4" />
               </video>
             </a>
 
@@ -407,9 +413,9 @@ function App() {
             </p>
 
             <div className="drink-image-row">
-              <img src="/images/Beer.png" alt="Drink card 1" />
-              <img src="/images/Cocktail.png" alt="Drink card 2" />
-              <img src="/images/Rum.png" alt="Drink card 3" />
+              <img src={asset("images/Beer.png")} alt="Drink card 1" />
+              <img src={asset("images/Cocktail.png")} alt="Drink card 2" />
+              <img src={asset("images/Rum.png")} alt="Drink card 3" />
             </div>
           </div>
 
@@ -421,9 +427,9 @@ function App() {
               shown below are example samples from the game.
             </p>
             <div className="utility-image-row">
-              <img src="/images/SaltRim.png" alt="Utility card 1" />
-              <img src="/images/LemonSlice.png" alt="Utility card 2" />
-              <img src="/images/Recycle.png" alt="Utility card 3" />
+              <img src={asset("images/SaltRim.png")} alt="Utility card 1" />
+              <img src={asset("images/LemonSlice.png")} alt="Utility card 2" />
+              <img src={asset("images/Recycle.png")} alt="Utility card 3" />
             </div>
           </div>
         </div>
