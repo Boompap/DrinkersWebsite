@@ -56,17 +56,28 @@ main > *:not(.beer-video-side):not(.navbar) {
   right: 0;
 }
 
+.beer-video-side {
+  --side-video-left: 50%;
+  --side-video-height: 160vh;
+  --side-video-scroll: -60vh;
+  --side-video-opacity: 0.95;
+  --side-video-scale-x: 0.25;
+}
+
 .beer-video-side video {
   position: absolute;
-  left: 50%;
+  left: var(--side-video-left);
   top: 0;
-  width: 200%;
-  height: 300vh;
-  object-fit: cover;
-  opacity: 0.95;
+  width: auto;
+  height: var(--side-video-height);
+  max-width: none;
+  object-fit: contain;
+  opacity: var(--side-video-opacity);
   pointer-events: none;
-
-  transform: translateX(-50%) translateY(calc(var(--beer-progress) * -200vh));
+  transform: translateX(-50%)
+    translateY(calc(var(--beer-progress) * var(--side-video-scroll)))
+    scaleX(var(--side-video-scale-x));
+  transform-origin: center top;
   transition: none;
 }
 
@@ -1382,11 +1393,6 @@ footer p {
   .beer-video-side {
     width: 20px;
     z-index: 3;
-  }
-
-  .beer-video-side video {
-    width: 240%;
-    opacity: 0.85;
   }
 
   .hero-title-svg {
