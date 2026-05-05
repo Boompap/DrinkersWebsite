@@ -1425,4 +1425,8 @@ footer p {
   .cta-button {
     width: 100%;
   }
+
+  .beer-video-side {
+    display: none;
+  }
 }
