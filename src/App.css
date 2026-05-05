@@ -1436,3 +1436,15 @@ footer p {
     display: none;
   }
 }
+
+@media (max-width: 600px) {
+  .hero-title-foam-object,
+  .hero-title-foam-video {
+    display: none;
+    opacity: 0;
+  }
+
+  .hero-title-link:hover .hero-title-foam-object {
+    opacity: 0;
+  }
+}
