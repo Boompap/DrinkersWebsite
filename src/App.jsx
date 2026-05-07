@@ -200,6 +200,19 @@ function App() {
         </div>
       </header>
 
+      <div className="hanging-lantern hanging-lantern-left" aria-hidden="true">
+        <div className="lantern-rope" />
+        <div className="lantern-hook" />
+        <div className="lantern-body">
+          <div className="lantern-top" />
+          <div className="lantern-glass">
+            <div className="lantern-flame" />
+          </div>
+          <div className="lantern-bottom" />
+        </div>
+        <div className="lantern-glow" />
+      </div>
+
       <section id="top" className="hero">
         <div className="hero-content hero-centered">
           <a
@@ -235,10 +248,10 @@ function App() {
                     y="50%"
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    fontFamily="Arial, Helvetica, sans-serif"
-                    fontSize="145"
+                    fontFamily="TavernFont, Arial, Helvetica, sans-serif"
+                    fontSize="175"
                     fontWeight="900"
-                    letterSpacing="-8"
+                    letterSpacing="0"
                     fill="white"
                   >
                     Drinkers 1000
@@ -251,10 +264,10 @@ function App() {
                 y="50%"
                 textAnchor="middle"
                 dominantBaseline="middle"
-                fontFamily="Arial, Helvetica, sans-serif"
-                fontSize="145"
+                fontFamily="TavernFont, Arial, Helvetica, sans-serif"
+                fontSize="175"
                 fontWeight="900"
-                letterSpacing="-8"
+                letterSpacing="0"
                 fill="#fcd34d"
               >
                 Drinkers 1000
@@ -317,21 +330,23 @@ function App() {
               target="_blank"
               rel="noreferrer"
             >
+              <div className="hero-logo-fill">
+                <video
+                  className="hero-logo-water"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                >
+                  <source src={asset("videos/waves1.mp4")} type="video/mp4" />
+                </video>
+              </div>
+
               <img
                 className="hero-logo-image"
                 src={asset("images/harpoonslogo1.png")}
                 alt="Harpoon Games logo"
               />
-
-              <video
-                className="hero-logo-water"
-                autoPlay
-                muted
-                loop
-                playsInline
-              >
-                <source src={asset("videos/waves1.mp4")} type="video/mp4" />
-              </video>
             </a>
 
             <p className="mockup-subtitle">
